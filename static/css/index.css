@@ -601,18 +601,18 @@ main p {
     max-width: 40px;
     height: auto;
     cursor: pointer;
-    margin-right: 2vw;
+    margin-left: -12vw;
 }
 
 .menu {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 25vw;
+    width: 17vw;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     display: none;
     z-index: 1;
-    margin-left: -16vw;
+    margin-left: -18vw;
     border-radius: 10px;
     background: linear-gradient(125deg, aqua,pink);
 }
@@ -875,7 +875,7 @@ footer {
     }
 
     .video-container iframe{
-        width: 30vw;
+        width: 37vw;
     }
     .abt{
         width: 40vw;
@@ -891,7 +891,7 @@ footer {
     }
     main{
         width: 100vw;
-        background-image: none;
+        
     }
 
 }
