@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Join-Us{% endblock title %}
+{% block head %}
+<link href="static/css/join.css" rel="stylesheet">
+{% endblock head %}
+
+
+{% block body %}
+<div class="jcontainer">
+    <h2>Join Us</h2>
+    <p>We welcome you to join our cause and make a difference!</p>
+    <div class="join-options">
+        <a class="btn volunteer-btn" href="{% url 'volunteer' %}">Volunteer</a>
+        <a class="btn sponsorship-btn" href="{% url 'sponsorship' %}">Sponsorship</a>
+    </div>
+    <div class="additional-info">
+        <h3>Why Join Us?</h3>
+        <ul>
+            <li>Make a positive impact in the community</li>
+            <li>Meet like-minded individuals</li>
+            <li>Gain valuable experience and skills</li>
+            <li>Contribute to meaningful projects</li>
+        </ul>
+        <p>Join us today and be part of the change!</p>
+    </div>
+</div>
+{% endblock body %}

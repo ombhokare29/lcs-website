@@ -1,0 +1,166 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.jcontainer {
+  max-width: 500px;
+  margin: 50px auto;
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 4px 5px 18px rgba(0, 0, 0, 0.2)
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input{
+  background-color: transparent ;
+}
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+textarea {
+  height: 100px;
+}
+
+input[type="submit"] {
+  background-color: rgb(249, 201, 106);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="submit"]:hover {
+  background-color: rgb(246, 222, 156);
+  color: rgb(255, 85, 0);
+
+  border-radius: 40px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 10px;
+  }
+}
+
+h2 {
+  text-align: center;
+}
+
+.join-options {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.volunteer-btn {
+    /* color: white; */
+    font-size: 1.1em;
+    border: none;
+    /* background-color: rgb(249, 201, 106); */
+    margin-bottom: 2vh;
+    margin-right: 2vw;
+    cursor: pointer;
+    border-radius: 20px;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    color: rgb(99, 97, 97);
+    background: linear-gradient(0.25turn, #ebf8e1, #f69d3c);
+    transition: transform 0.3s ease;
+
+}
+
+.sponsorship-btn {
+    /* color: white; */
+    font-size: 1.1em;
+    border: none;
+    /* background-color: rgb(249, 201, 106); */
+    margin-bottom: 2vh;
+    margin-left: 2vw;
+    cursor: pointer;
+    border-radius: 20px;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    color: rgb(99, 97, 97);
+    background: linear-gradient(0.25turn, #ebf8e1, #f69d3c);
+    transition: transform 0.3s ease;
+
+}
+
+.additional-info {
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 4px -4px 11px rgba(0, 0, 0, 0.3);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+.btn.volunteer-btn:hover {
+  color: black;
+  transform: scale(1.15);
+
+}
+
+.btn.sponsorship-btn:hover {
+  color: black;
+  transform: scale(1.15);
+
+}
+
+.jcontainer form #email{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.jcontainer form #phone{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

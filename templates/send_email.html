@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+
+
+{% block title %}Send Emails{% endblock title %}
+{% block head %}
+<link rel="stylesheet" href="/static/css/index.css">
+{% endblock head %}
+{% block body %}
+{% if user.is_superuser %}
+<h2>Send Email to Volunteers</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+    </div>
+    <div>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+    </div>
+    <button type="submit">Send Email</button>
+</form>
+{% else %}
+<h1>404</h1><h2>not found!</h2>
+{% endif %}
+{% endblock body %}

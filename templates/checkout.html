@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock title %}
+{% block head %}
+<link href="static/css/checkout.css" rel="stylesheet">
+
+
+{% endblock head %}
+{% block body %}
+
+<body>
+    <h1>Checkout Page</h1>
+    
+    <form action="{% url 'create_checkout_session' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="amount" id="amount">
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+
+{% endblock body %}

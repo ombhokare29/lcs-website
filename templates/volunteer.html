@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Volunteer
+{% endblock title %}
+{% block head %}
+<link href="static/css/join.css" rel="stylesheet">
+{% endblock head %}
+{% block body %}
+<body>
+    <div class="jcontainer">
+      <h2>Volunteer Details</h2>
+      <form action= "/volunteer" method="POST">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+  
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter Your Email Address" required>
+  
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter Your Phone Number" required>
+  
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" placeholder="Enter your Address" required></textarea>
+  
+        <label for="availability">Availability:</label>
+        <textarea id="availability" name="availability" placeholder="Enter Your Availability" required></textarea>
+  
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </body>
+{% endblock body %}
