@@ -35,9 +35,10 @@ body {
 .storycard{
 
     width: 30vw;
+    height: 30vw;
     
     /* margin-left: 10vw; */
-    margin-top: 4vh;
+    
     box-shadow: 21px -7px 37px black;
     border-radius: 20px;
     padding: 30px;
@@ -60,11 +61,30 @@ body {
 
 .storycard h2 {
     font-weight: 500;
-    margin-left: 16vw;
-    justify-content: center;
-    align-items: center;
+    
 }
 
 .storycard p:hover{
     transform:scale(1.03);
+}
+
+@media (max-width:1350px) {
+    .storycard h2 {
+        font-weight: 200;
+        font-size: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .storycard p{
+        margin-top: 1vw;
+        font-size: 0.5rem;
+        text-shadow: rgb(22, 22, 22) 2.2px 5px 11px;
+        transition: transform 0.3s ease;
+    }
+
+    .storycard{
+        padding: 10px;
+    }
 }
