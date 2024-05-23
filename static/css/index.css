@@ -893,10 +893,11 @@ footer {
 }
 
 @media(max-width:600px) {
-    .body{
+    .body {
         width: 82%;
-        
+
     }
+
     .video-container h3 {
         height: 2.5vh;
         width: 37vw;
@@ -912,6 +913,8 @@ footer {
         height: 40vw;
 
     }
+
+
 
     .abt {
         width: 55vw;
@@ -940,10 +943,11 @@ footer {
         margin-left: 1vw;
     }
 
-    #ngonamesingle{
+    #ngonamesingle {
 
         font-size: 1.5em;
     }
-
+ 
 
 }
+
