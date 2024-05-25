@@ -6,22 +6,24 @@
 {% block title %}Send Emails{% endblock title %}
 {% block head %}
 <link rel="stylesheet" href="/static/css/index.css">
+<link rel="stylesheet" href="/static/css/sendemail.css">
 {% endblock head %}
 {% block body %}
 {% if user.is_superuser %}
-<h2>Send Email to Volunteers</h2>
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" required>
-    </div>
-    <div>
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" required></textarea>
-    </div>
-    <button type="submit">Send Email</button>
-</form>
+<div class="scontainer">
+    <h2>Send Email to Volunteers</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="ssubmit-btn">Send Email</button>
+    </form>
 {% else %}
 <h1>404</h1><h2>not found!</h2>
 {% endif %}

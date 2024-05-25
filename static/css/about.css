@@ -11,7 +11,7 @@ body {
     padding: 20px;
     display: flex;
     margin-bottom: 7vw;
-    margin-top: 2vw;
+    margin-top: 5vw;
     justify-content: space-around;
     
     
@@ -25,6 +25,7 @@ body {
     border-radius: 12px;
     background-color: aqua;
     transition: transform 0.3s ease-in-out;
+    margin-top: 5vw;
 
 }
 
@@ -36,10 +37,10 @@ body {
 
     width: 30vw;
     height: 30vw;
-    
+    margin-top: 2vw;
     /* margin-left: 10vw; */
     
-    box-shadow: 21px -7px 37px black;
+    box-shadow: 20px -2px 32px black;
     border-radius: 20px;
     padding: 30px;
    

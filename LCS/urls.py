@@ -17,10 +17,12 @@ urlpatterns = [
     path("success", views.success, name='success'),
     path("cancel", views.cancel, name='cancel'),
     path('checkout', views.checkout, name='checkout'),
-    path('create_checkout_session', views.create_checkout_session_form, name='create_checkout_session'),
+    path('create_checkout_session', views.create_checkout_session, name='create_checkout_session'),
     path('send_email/', views.send_email_to_volunteers, name='send_email'),
     path('send-otp/', views.send_otp, name='send_otp'),
     path('verify-otp/', views.verify_otp, name='verify_otp'),
+    path('up-events/', views.upcoming_events, name='up-events'),
+    path('error/', views.error_page, name='error_page'),
 ]
 
 

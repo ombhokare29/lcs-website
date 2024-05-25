@@ -57,7 +57,10 @@
 }
 
 
-
+.alert-dismissible {
+    padding-right: 4rem;
+    margin-top: 5vw;
+}
 .ngoheaderlogo a img {
     /* width: 5vw; */
     height: 10vh;
@@ -313,6 +316,13 @@ footer {
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease-in-out;
+    width: 7vw;
+    height: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3vw;
+    position: relative;
 }
 
 .btn-primary:hover {
@@ -322,6 +332,7 @@ footer {
 
 .upcoming-events {
     padding: 60px 0;
+    margin-top: 5vw;
 
 }
 

@@ -3,9 +3,8 @@
 {% extends "base.html" %}
 {% block title %}Donate{% endblock title %}
 {% block head %}
-<link rel="stylesheet" href="static/css/donation.css">
-<link rel="stylesheet" href="static/css/index.css">
-
+<link rel="stylesheet" href="/static/css/donation.css">
+<link rel="stylesheet" href="/static/css/index.css">
 {% endblock head %}
 {% block body %}
 
@@ -15,8 +14,7 @@
   <h1>Donate to Support Our Cause</h1>
   <p>Your generous donation helps us continue our mission of spreading love, care, and support to those in need.</p>
   <hr>
-  <h2>Donation Options</h2>
-  <p>Please select the amount you would like to donate:</p>
+
   <form action="/checkout">
     <button type="submit" class="btn btn-primary">Donate Now</button>
   </form>
@@ -27,13 +25,11 @@
   <p>To make a donation, please log in or register.</p>
   
   <a href="#loginmodal" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a>
-  <a href="#signupmodal" data-bs-toggle="modal" data-bs-target="#signupmodal">register</a>
+  <a href="#signupmodal" data-bs-toggle="modal" data-bs-target="#signupmodal">Register</a>
   
   <p>Learn more about our cause: <a href="{% url 'about' %}">About Us</a></p>
   <p>Contact us at: <a href="mailto:ombhokare29@gmail.com">contact@LoveCareShare.org</a></p>
 </div>
 {% endif %}
-
-
 
 {% endblock body %}

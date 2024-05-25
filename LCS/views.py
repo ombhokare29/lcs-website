@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from LCS.models import volunteer, sponsorship,Contact,create_checkout_session
+from LCS.models import volunteer, sponsorship,Contact,create_checkout_session,Donation
 from django.core.mail import send_mass_mail
 from django.contrib import messages 
 from django.contrib.auth.models import User
@@ -194,43 +194,95 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 
-def create_checkout_session_form(request):
-    
-    # Create a new Checkout Session
-    # if request.method == 'POST':
-    #     amount = int(request.POST.get('amount', 0))  # Assuming the amount is submitted via a form field
-    #     session = create_checkout_session(request, amount)
-    #     # Redirect the user to the Stripe Checkout page using the session URL
-    #     return render(request, 'checkout.html', {'session': session})
+def create_checkout_session(request):
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        address_line1 = request.POST.get('address_line1')
+        address_line2 = request.POST.get('address_line2')
+        address_city = request.POST.get('address_city')
+        address_state = request.POST.get('address_state')
+        address_postal_code = request.POST.get('address_postal_code')
+        address_country = 'US'  # Assuming donations are from India
 
-    # return render(request, 'checkout_form.html')
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=[
-            {
-                'price_data': {
-                    'currency': 'usd',
-                    'product_data': {
-                        'name': 'Donate for a Better Society',
+        # Check for missing fields
+        if not amount or not name or not email or not address_line1 or not address_city or not address_state or not address_postal_code:
+            return render(request, 'error.html', {'message': 'All fields are required.'})
+
+        # Convert amount to paise (INR has 100 paise in 1 rupee)
+        try:
+            amount_in_paise = int(float(amount) * 100)
+        except ValueError:
+            return render(request, 'error.html', {'message': 'Invalid amount provided.'})
+
+        try:
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'inr',
+                            'product_data': {
+                                'name': 'Donate for a Better Society',
+                            },
+                            'unit_amount': amount_in_paise,
+                        },
+                        'quantity': 1,
                     },
-                    'unit_amount': 100,  # Amount in cents
+                ],
+                mode='payment',
+                success_url=request.build_absolute_uri(reverse('success')),
+                cancel_url=request.build_absolute_uri(reverse('cancel')),
+                customer_email=email,
+                billing_address_collection='required',
+                shipping_address_collection={
+                    'allowed_countries': ['IN', 'US'],
                 },
-                'quantity': 1,
-            },
-        ],
-        mode='payment',
-        success_url=request.build_absolute_uri(reverse('success')),
-        cancel_url=request.build_absolute_uri(reverse('cancel')),
-    )
+                metadata={
+                    'name': name,
+                    'address_line1': address_line1,
+                    'address_line2': address_line2,
+                    'address_city': address_city,
+                    'address_state': address_state,
+                    'address_postal_code': address_postal_code,
+                    'address_country': address_country,
+                }
+            )
+            Donation.objects.create(
+                user=request.user if request.user.is_authenticated else None,
+                name=name,
+                email=email,
+                amount=float(amount),
+                address_line1=address_line1,
+                address_line2=address_line2,
+                address_city=address_city,
+                address_state=address_state,
+                address_postal_code=address_postal_code,
+                address_country=address_country,
+            )
 
-    return redirect(session.url)
+            return redirect(session.url)
+        except stripe.error.StripeError as e:
+            # Log the error message
+            print(f'Stripe error: {str(e)}')
+            return render(request, 'error.html', {'message': 'There was an error processing your payment. Please try again.'})
+        except Exception as e:
+            # Log any other exception
+            print(f'General error: {str(e)}')
+            return render(request, 'error.html', {'message': 'An unexpected error occurred. Please try again.'})
 
+    return redirect('donate.html')
 def success(request):
     return render(request, 'success.html')
 
 def cancel(request):
     return render(request, 'cancel.html')
 
+def error_page(request):
+    return render(request, 'error.html', {
+        'message': 'There was an error processing your payment. Please try again.'
+    })
 
 def send_email_to_volunteers(request):
     if request.method == 'POST':
@@ -249,3 +301,12 @@ def send_email_to_volunteers(request):
         messages.success(request, 'Emails sent successfully to all volunteers.')
 
     return render(request, 'send_email.html')
+
+
+# views.py
+
+from .models import Event
+
+def upcoming_events(request):
+    events = Event.objects.all()
+    return render(request, 'upevents.html', {'events': events})
