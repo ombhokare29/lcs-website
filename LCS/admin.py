@@ -2,22 +2,23 @@
 from django.contrib import admin
 
 from .models import Contact, sponsorship, volunteer
-from .models import Donation
+from .models import Donation,Review
+from .models import GalleryEvent, Photo
 
 # Register your models here.
 
 class ContactAdmin(admin.ModelAdmin):
-    # Customize the display fields
+
     list_display = ('name', 'email', 'phone', 'query')
-
-    # Add search functionality
     search_fields = ('name', 'email')
-
-    # Add filters
     list_filter = ('name',)
-
-# Register the model with the customized admin class
 admin.site.register(Contact, ContactAdmin)
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'review')
+    search_fields = ('name', 'email')
+    list_filter = ('name',)
+admin.site.register(Review, ReviewAdmin)
 
 
 class volunteerAdmin(admin.ModelAdmin):
@@ -47,3 +48,15 @@ admin.site.register(Event, EventAdmin)
 class DonationAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'amount', 'created_at')
     search_fields = ('name', 'email')
+
+
+
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    extra = 1
+
+class GalleryEventAdmin(admin.ModelAdmin):
+    inlines = [PhotoInline]
+
+admin.site.register(GalleryEvent, GalleryEventAdmin)
+admin.site.register(Photo)

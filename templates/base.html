@@ -10,6 +10,7 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet"  href="/static/css/gallery.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,6 +55,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" id="nav-link" href="/about">AboutUs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-link" href="/gallery">Gallery</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="nav-link" href="/joinus">JoinUs</a>
@@ -127,6 +131,7 @@
           {% if user.is_authenticated %}
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
+          <li><a href="/gallery">Gallery</a></li>
           <li><a href="/joinus">Join Us</a></li>
           <li><a href="/contact">Contact</a></li>
           <li><a href="/donate">Donate</a></li>
@@ -135,6 +140,7 @@
           <li><a href="#signupmodal" data-bs-toggle="modal" data-bs-target="#signupmodal">Signup</a></li>
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
+          <li><a href="/gallery">Gallery</a></li>
           <li><a href="/joinus">Join Us</a></li>
           <li><a href="/contact">Contact</a></li>
           <li><a href="/donate">Donate</a></li>
@@ -284,48 +290,21 @@
 
         <ul>
           <li><a href="#">Home</a></li><br>
-          <li><a href="#">About</a></li><br>
-          <li><a href="#">Contact</a></li><br>
-          <li><a href="#">About Us</a></li><br>
-          <li><a href="#">Our Work</a></li><br>
-          <li><a href="#">Expert Team</a></li><br>
-          <li><a href="#">Latest News</a></li><br>
-          <li><a href="#">Contact Us</a></li><br>
+          <li><a href="/about">About</a></li><br>
+          <li><a href="/contact">Contact</a></li><br>
         </ul>
       </div>
-      <ul class="footer-social-list">
-        <li class="icon-fb">
-          <a href="https://www.facebook.com/T20WorldCup" target="_blank">
-            <img height="28" src="https://content.secutix.com/T20INC/images/fb.png" alt="">
-          </a>
-        </li>
-        <li class="icon-x">
-          <a href="https://twitter.com/t20worldcup" target="_blank">
-            <img height="28" src="https://content.secutix.com/T20INC/images/x.png" alt="">
-          </a>
-        </li>
-        <li class="icon-yt">
-          <a href="https://www.youtube.com/user/CricketICC" target="_blank">
-            <img height="28" src="https://content.secutix.com/T20INC/images/ytb.png" alt="">
-          </a>
-        </li>
-        <li class="icon-instagram">
-          <a href="https://www.instagram.com/t20worldcup/" target="_blank">
-            <img height="28" src="https://content.secutix.com/T20INC/images/inst.png" alt="">
-          </a>
-        </li>
-      </ul>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/lcs4society/"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/lcs4society/"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.linkedin.com/company/lovecareshare/"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://youtu.be/EuRfk1evHdw"><i class="fab fa-youtube"></i></a>
+        <a href="https://twitter.com/lcs4society?ref_src=twsrc%5Etfw" class="twitter-follow-button"></a>
+      </div>
 
 
       <div class="footer-bottom">
-        <p>Copyright &copy; 2024. All Right Reserved Om Bhokare and Love Care Share.</p>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Terms</a></li>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Policy</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+        <p>Copyright &copy; 2024. All Right Reserved to Om Bhokare and Love Care Share.</p>
       </div>
     </div>
   </footer>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from LCS.models import volunteer, sponsorship,Contact,create_checkout_session,Donation
+from LCS.models import volunteer, sponsorship,Contact,create_checkout_session,Donation,Review
 from django.core.mail import send_mass_mail
 from django.contrib import messages 
 from django.contrib.auth.models import User
@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 import stripe
 from django.conf import settings
-
+from django.views.decorators.http import require_POST
+from textblob import TextBlob
 import random
 from django.core.mail import send_mail
 from django.http import JsonResponse
@@ -16,7 +17,8 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+from django.shortcuts import render, get_object_or_404
+from .models import GalleryEvent, Review
 
 
 # Create your views here.
@@ -65,19 +67,76 @@ def sponsorship_form(request):
     
 
 def contact_form(request):
-    if request.method=="POST":
+    if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         query = request.POST.get('query')
-        print(name,email,phone,query)
-        b = Contact(name=name,email=email,phone=phone,query=query)
-        b.save()
-        messages.success(request, "Your response hs been successfully sent!!")
+
+        # Perform sentiment analysis using TextBlob
+        analysis = TextBlob(query)
+        polarity = analysis.sentiment.polarity
+        subjectivity = analysis.sentiment.subjectivity
+
+        # Determine sentiment label based on polarity
+        if polarity > 0:
+            sentiment_label = 'Positive'
+        elif polarity < 0:
+            sentiment_label = 'Negative'
+        else:
+            sentiment_label = 'Neutral'
+
+        # Save the contact form data and sentiment analysis results
+        Contact.objects.create(
+            name=name,
+            email=email,
+            phone=phone,
+            query=query,
+            sentiment_label=sentiment_label,
+            polarity=polarity,
+            subjectivity=subjectivity
+        )
+
+        # Display success message
+        messages.success(request, "Your response has been successfully sent!")
 
     return render(request, 'contact.html')
 
+def review_form(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        review = request.POST.get('review')
 
+        # Perform sentiment analysis using TextBlob
+        analysis = TextBlob(review)
+        polarity = analysis.sentiment.polarity
+        subjectivity = analysis.sentiment.subjectivity
+
+        # Determine sentiment label based on polarity
+        if polarity > 0:
+            sentiment_label = 'Positive'
+        elif polarity < 0:
+            sentiment_label = 'Negative'
+        else:
+            sentiment_label = 'Neutral'
+
+        # Save the contact form data and sentiment analysis results
+        Review.objects.create(
+            name=name,
+            email=email,
+            phone=phone,
+            review=review,
+            sentiment_label=sentiment_label,
+            polarity=polarity,
+            subjectivity=subjectivity
+        )
+
+        # Display success message
+        messages.success(request, "Your response has been successfully sent!")
+
+    return render(request, 'review.html')
 
 @csrf_exempt
 def send_otp(request):
@@ -261,6 +320,24 @@ def create_checkout_session(request):
                 address_postal_code=address_postal_code,
                 address_country=address_country,
             )
+            #send mail after donation
+            subject = 'Donation Confirmation'
+            message = (
+                f'Dear {name},\n\n'
+                f'Thank you for your donation of {amount} INR to support our cause. '
+                'Your contribution helps us make a positive impact in our community.\n\n'
+                'We greatly appreciate your generosity and support.\n\n'
+                'Best regards,\n'
+                'Love Care Share Foundation.'
+            )
+
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email='your-email@example.com',
+                recipient_list=[email],
+                fail_silently=False,
+            )
 
             return redirect(session.url)
         except stripe.error.StripeError as e:
@@ -310,3 +387,14 @@ from .models import Event
 def upcoming_events(request):
     events = Event.objects.all()
     return render(request, 'upevents.html', {'events': events})
+
+
+def gallery(request):
+    events = GalleryEvent.objects.all()
+    return render(request, 'gallery.html', {'events': events})
+
+def event_detail(request, event_id):
+    event = get_object_or_404(GalleryEvent, id=event_id)
+    return render(request, 'event_detail.html', {'event': event})
+
+

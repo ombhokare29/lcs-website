@@ -1,0 +1,25 @@
+<!-- event_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ event.name }}{% endblock %}
+{% block head %}
+<link rel="stylesheet"  href="/static/css/index.css">
+{% endblock head %}
+
+
+
+{% block body %}
+<div class="event-container">
+    <h1 class="event-title">{{ event.name }}</h1>
+    <p class="event-description">{{ event.description }}</p>
+    <p class="event-date">Date: {{ event.date }}</p>
+    <div class="event-photos">
+        {% for photo in event.photos.all %}
+        <div>
+            <img src="{{ photo.image.url }}" alt="{{ photo.caption }}">
+            <p>{{ photo.caption }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

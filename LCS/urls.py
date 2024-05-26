@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.conf.urls.static import static
 from django.urls import path
 from LCS import views
+from django.conf import settings
 
 urlpatterns = [
     
@@ -8,6 +10,7 @@ urlpatterns = [
     path("about", views.about, name='about'),
     path("joinus", views.joinus, name='joinus'),
     path("contact", views.contact_form, name='contact'),
+    path("review", views.review_form, name='review'),
     path("donate", views.donate, name='donate'),
     path("volunteer", views.volunteer_form, name='volunteer'),
     path("sponsorship", views.sponsorship_form, name='sponsorship'),
@@ -23,9 +26,13 @@ urlpatterns = [
     path('verify-otp/', views.verify_otp, name='verify_otp'),
     path('up-events/', views.upcoming_events, name='up-events'),
     path('error/', views.error_page, name='error_page'),
+    path('gallery/', views.gallery, name='gallery'),
+    path('gallery/<int:event_id>/', views.event_detail, name='event_detail'),
 ]
 
 
     
     
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

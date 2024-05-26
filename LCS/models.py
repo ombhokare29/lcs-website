@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 # Create your models here.
 class volunteer(models.Model):
@@ -18,14 +19,36 @@ class sponsorship(models.Model):
     
 
 
+# models.py
+
+
+
 class Contact(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20)
     query = models.TextField()
+    sentiment_label = models.CharField(max_length=20, blank=True, null=True)
+    polarity = models.FloatField(blank=True, null=True)
+    subjectivity = models.FloatField(blank=True, null=True)
+    created_at = models.DateTimeField(default=now, editable=False)
 
     def __str__(self):
-        return f"{self.name} ({self.email})"
+        return f"Contact Form Submission from {self.name} ({self.email})"
+    
+class Review(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    review = models.TextField()
+    sentiment_label = models.CharField(max_length=20, blank=True, null=True)
+    polarity = models.FloatField(blank=True, null=True)
+    subjectivity = models.FloatField(blank=True, null=True)
+    created_at = models.DateTimeField(default=now, editable=False)
+
+    def __str__(self):
+        return f"Contact Form Submission from {self.name} ({self.email})"
+
     
 
 class create_checkout_session(models.Model):
@@ -64,3 +87,19 @@ class Donation(models.Model):
         return f'Donation by {self.name} of {self.amount}'
 
 
+
+class GalleryEvent(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    date = models.DateField()
+
+    def __str__(self):
+        return self.name
+
+class Photo(models.Model):
+    event = models.ForeignKey(GalleryEvent, on_delete=models.CASCADE, related_name='photos')
+    image = models.ImageField(upload_to='event_photos/')
+    caption = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.caption if self.caption else f"Photo for {self.event.name}"
